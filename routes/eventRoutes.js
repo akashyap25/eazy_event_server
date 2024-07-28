@@ -1,29 +1,23 @@
+const express = require('express');
 const {
   createEvent,
-  getEvent,
-  getAllEvents,
+  getEventById,
   updateEvent,
-  getEventsByOrganizerId,
-  createTask,
-  getTasksByEventId,
-  updateTask,
-  deleteTask,
-  getTasksByUserId
-} = require("../controllers/eventControllers");
-const router = require("express").Router();
+  deleteEvent,
+  getAllEvents,
+  getEventsByUser,
+  getRelatedEvents,
+} = require('../controllers/eventController');
 
-// Event routes
-router.get("/all", getAllEvents); // Retrieve all events
-router.get("/:eventId", getEvent); // Get a specific event by ID
-router.get("/organizer/:organizerId", getEventsByOrganizerId); // Get events by organizer ID
-router.post("/", createEvent); // Create a new event
-router.put("/:eventId", updateEvent); // Update an event by ID
+const router = express.Router();
 
-// Task routes
-router.post("/tasks", createTask); // Create a new task
-router.get("/:eventId/tasks", getTasksByEventId); // Get tasks by event ID
-router.put("/tasks/:taskId", updateTask); // Update a task by ID
-router.delete("/tasks/:taskId", deleteTask); // Delete a task by ID
-router.get("/tasks/:userId", getTasksByUserId); // Get tasks by user ID
+router.post('/create', createEvent);
+router.get('/related', getRelatedEvents);
+router.get('/', getAllEvents);
+router.get('/:id', getEventById);
+router.put('/:id', updateEvent);
+router.delete('/:id', deleteEvent);
+router.get('/user', getEventsByUser);
+
 
 module.exports = router;

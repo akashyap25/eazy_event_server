@@ -1,19 +1,27 @@
-const mysql = require('mysql2');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Create a pool with promise support
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  Promise: require('bluebird') // Use bluebird for promises
-});
+const mongoUri = process.env.MONGO_URI;
 
-// Promisify the pool
-pool.query = require('bluebird').promisify(pool.query);
+let isConnected = false;
 
-module.exports = pool;
+async function connectToMongo() {
+  if (isConnected) {
+    console.log('Already connected to MongoDB');
+    return;
+  }
+
+  try {
+    await mongoose.connect(mongoUri);
+    isConnected = true;
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB', error);
+    process.exit(1); 
+    
+  }
+}
+
+module.exports = connectToMongo;
