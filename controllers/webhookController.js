@@ -51,17 +51,19 @@ const webhookController = async (req, res) => {
     if (eventType === 'user.created') {
       console.log(`User ${id} was created`);
 
-      console.log(id, attributes);
+      
 
       // Create the user with the necessary attributes
       const newUser = {
-        clerkUserId: id,
+        clerkId: id,
         firstName: attributes.first_name,
         lastName: attributes.last_name,
         email: attributes.email_addresses[0].email_address,
-        userName: attributes.username,
+        username: attributes.username,
         photo: attributes.image_url,
       };
+
+      console.log('New user:', newUser);
 
       try {
         // Use axios to send a request to the createUser route
