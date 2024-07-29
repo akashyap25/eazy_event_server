@@ -48,34 +48,80 @@ const webhookController = async (req, res) => {
     const { id, ...attributes } = evt.data;
     const eventType = evt.type;
 
-    if (eventType === 'user.created') {
-      console.log(`User ${id} was created`);
+    switch (eventType) {
+      case 'user.created':
+        console.log(`User ${id} was created`);
+        
+        // Create the user with the necessary attributes
+        const newUser = {
+          clerkId: id,
+          firstName: attributes.first_name,
+          lastName: attributes.last_name,
+          email: attributes.email_addresses[0].email_address,
+          username: attributes.username,
+          photo: attributes.image_url,
+        };
 
-      
+        console.log('New user:', newUser);
 
-      // Create the user with the necessary attributes
-      const newUser = {
-        clerkId: id,
-        firstName: attributes.first_name,
-        lastName: attributes.last_name,
-        email: attributes.email_addresses[0].email_address,
-        username: attributes.username,
-        photo: attributes.image_url,
-      };
+        try {
+          // Use axios to send a request to the createUser route
+          await axios.post(`${process.env.SERVER_BASE_URL}/api/users/`, newUser); // Ensure SERVER_BASE_URL is set in your .env
+          console.log('User created in MongoDB');
+        } catch (error) {
+          console.error('Error creating user in MongoDB:', error);
+          return res.status(500).json({
+            success: false,
+            message: 'Error creating user in MongoDB',
+          });
+        }
+        break;
 
-      console.log('New user:', newUser);
+      case 'user.updated':
+        console.log(`User ${id} was updated`);
+        
+        // Update the user with the necessary attributes
+        const updatedUser = {
+          firstName: attributes.first_name,
+          lastName: attributes.last_name,
+          email: attributes.email_addresses[0].email_address,
+          username: attributes.username,
+          photo: attributes.image_url,
+        };
 
-      try {
-        // Use axios to send a request to the createUser route
-        await axios.post(`${process.env.SERVER_BASE_URL}/api/users/`, newUser); // Ensure SERVER_BASE_URL is set in your .env
-        console.log('User created in MongoDB');
-      } catch (error) {
-        console.error('Error creating user in MongoDB:', error);
-        return res.status(500).json({
-          success: false,
-          message: 'Error creating user in MongoDB',
-        });
-      }
+        console.log('Updated user:', updatedUser);
+
+        try {
+          // Use axios to send a request to the updateUser route
+          await axios.put(`${process.env.SERVER_BASE_URL}/api/users/${id}`, updatedUser); // Ensure SERVER_BASE_URL is set in your .env
+          console.log('User updated in MongoDB');
+        } catch (error) {
+          console.error('Error updating user in MongoDB:', error);
+          return res.status(500).json({
+            success: false,
+            message: 'Error updating user in MongoDB',
+          });
+        }
+        break;
+
+      case 'user.deleted':
+        console.log(`User ${id} was deleted`);
+
+        try {
+          // Use axios to send a request to the deleteUser route
+          await axios.delete(`${process.env.SERVER_BASE_URL}/api/users/${id}`); // Ensure SERVER_BASE_URL is set in your .env
+          console.log('User deleted from MongoDB');
+        } catch (error) {
+          console.error('Error deleting user from MongoDB:', error);
+          return res.status(500).json({
+            success: false,
+            message: 'Error deleting user from MongoDB',
+          });
+        }
+        break;
+
+      default:
+        console.log(`Unhandled event type: ${eventType}`);
     }
 
     return res.status(200).json({
