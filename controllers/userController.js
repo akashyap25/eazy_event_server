@@ -3,16 +3,13 @@ const Event = require('../models/event');
 const Order = require('../models/order');
 
 
-const createUser = async (userAttributes) => {
-  console.log('Creating user...');
-  console.log(userAttributes);
+const createUser = async (req, res) => {
   try {
-    const user = new User(userAttributes);
-    await user.save();
-    console.log('User created successfully');
+    const newUser = await User.create(req.body);
+    res.status(201).json({ success: true, user: newUser });
   } catch (error) {
-    console.error('Error creating user:', error);
-    throw new Error('Error creating user');
+    
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
