@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: process.env.CLIENT_BASE_URL,
   credentials: true
 }));
 app.use(bodyParser.json()); // Ensure this is used before your routes
