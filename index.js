@@ -10,6 +10,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const webhookRoutes = require('./routes/webhookRoutes'); // Fixed typo
 const connectToMongo = require('./db/db');
 const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
+const cors = require('cors');
 
 const port = process.env.PORT || 5000;
 const app = express();
