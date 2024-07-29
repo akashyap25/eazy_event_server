@@ -4,6 +4,8 @@ const Order = require('../models/order');
 
 
 const createUser = async (userAttributes) => {
+  console.log('Creating user...');
+  console.log(userAttributes);
   try {
     const user = new User(userAttributes);
     await user.save();
