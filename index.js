@@ -8,6 +8,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const webhokRoutes = require('./routes/webhookRoutes');
 const connectToMongo = require('./db/db');
 
 const port = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/webhook', webhokRoutes);
 
 app.listen(port, () => {
   connectToMongo();

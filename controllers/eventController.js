@@ -63,7 +63,6 @@ const deleteEvent = async (req, res) => {
 };
 
 const getEventsByUser = async (req, res) => {
-  console.log('getEventsByUser');
   try {
     const { id } = req.params;
     const events = await Event.find({ organizer: id })
