@@ -51,6 +51,8 @@ const webhookController = async (req, res) => {
     if (eventType === 'user.created') {
       console.log(`User ${id} was created`);
 
+      console.log(id, attributes);
+
       // Create the user with the necessary attributes
       const newUser = {
         clerkUserId: id,
