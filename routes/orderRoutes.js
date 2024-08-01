@@ -13,6 +13,6 @@ router.post('/checkout', checkoutOrder);
 router.post('/', createOrder);
 router.get('/event', getOrdersByEvent);
 router.get('/user/:id', getOrdersByUser);
-router.get('/webhook', handleStripeWebhook);
+router.post('/webhook', handleStripeWebhook);
 
 module.exports = router;
