@@ -27,8 +27,8 @@ const checkoutOrder = async (req, res) => {
       ],
       metadata: { eventId, buyerId },
       mode: 'payment',
-      success_url: `${process.env.CLIENT_BASE_URL}/profile/${buyerId}?success=true`,
-      cancel_url: `${process.env.CLIENT_BASE_URL}/?canceled=true`,
+      success_url: `${process.env.CLIENT_BASE_URL}/profile/${buyerId}`,
+      cancel_url: `${process.env.CLIENT_BASE_URL}/events/${eventId}`,
     });
 
     res.json({ url: session.url });
