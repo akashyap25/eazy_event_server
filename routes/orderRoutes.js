@@ -4,6 +4,7 @@ const {
   createOrder,
   getOrdersByEvent,
   getOrdersByUser,
+  handleStripeWebhook,
 } = require('../controllers/orderController');
 
 const router = express.Router();
@@ -11,6 +12,7 @@ const router = express.Router();
 router.post('/checkout', checkoutOrder);
 router.post('/', createOrder);
 router.get('/event', getOrdersByEvent);
-router.get('/user', getOrdersByUser);
+router.get('/user/:id', getOrdersByUser);
+router.get('/webhook', handleStripeWebhook);
 
 module.exports = router;

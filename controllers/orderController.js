@@ -2,7 +2,7 @@ const Stripe = require('stripe');
 const Order = require('../models/order');
 const Event = require('../models/event');
 const User = require('../models/user');
-
+const nodemailer = require('nodemailer');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -12,10 +12,11 @@ const checkoutOrder = async (req, res) => {
 
   try {
     const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: 'inr',
             unit_amount: amount,
             product_data: {
               name: eventTitle,
@@ -26,13 +27,13 @@ const checkoutOrder = async (req, res) => {
       ],
       metadata: { eventId, buyerId },
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+      success_url: `${process.env.CLIENT_BASE_URL}/profile/${buyerId}?success=true`,
+      cancel_url: `${process.env.CLIENT_BASE_URL}/?canceled=true`,
     });
 
     res.json({ url: session.url });
   } catch (error) {
-   
+    console.error('Stripe checkout session error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -46,6 +47,57 @@ const createOrder = async (req, res) => {
   } catch (error) {
    
     res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+// Handle Stripe webhook events
+const handleStripeWebhook = async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const { metadata } = session;
+
+      // Create order
+      const newOrder = await Order.create({
+        event: metadata.eventId,
+        buyer: metadata.buyerId,
+        totalAmount: session.amount_total / 100,
+        createdAt: new Date(),
+      });
+
+      // Get buyer details
+      const buyer = await User.findById(metadata.buyerId);
+
+      // Send email notification
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: buyer.email,
+        subject: 'Order Confirmation',
+        text: `Thank you for your purchase!\n\nEvent: ${session.line_items[0].description}\nAmount: ${session.amount_total / 100} INR\n\nYour order has been placed successfully.`,
+      });
+
+      res.json({ received: true });
+    } else {
+      res.status(400).end(); // Unexpected event type
+    }
+  } catch (error) {
+    console.error('Webhook Error:', error);
+    res.status(400).send(`Webhook Error: ${error.message}`);
   }
 };
 
@@ -133,4 +185,5 @@ module.exports = {
   createOrder,
   getOrdersByEvent,
   getOrdersByUser,
+  handleStripeWebhook
 };
