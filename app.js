@@ -8,7 +8,6 @@ const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const connectToMongo = require('./db/db');
-const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
 const cors = require('cors');
 
 const port = process.env.PORT || 5000;
@@ -16,10 +15,8 @@ const app = express();
 
 app.use(cors());
 
-// Apply raw bodyParser only to webhook route
-app.post('/api/orders/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) => {
-  require('./controllers/orderController').handleStripeWebhook(req, res);
-});
+// Apply raw bodyParser only to the webhook route
+app.post('/api/orders/webhook', bodyParser.raw({ type: 'application/json' }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

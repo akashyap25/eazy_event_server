@@ -13,6 +13,8 @@ router.post('/checkout', checkoutOrder);
 router.post('/', createOrder);
 router.get('/event', getOrdersByEvent);
 router.get('/user/:id', getOrdersByUser);
-router.post('/webhook',express.raw({type: 'application/json'}) ,handleStripeWebhook);
+
+// Ensure this route matches the webhook setup in app.js
+router.post('/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook);
 
 module.exports = router;

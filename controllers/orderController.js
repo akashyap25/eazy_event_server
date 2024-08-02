@@ -52,6 +52,9 @@ const createOrder = async (req, res) => {
 
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
+  host: "smtp.ethereal.email",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -62,22 +65,32 @@ const transporter = nodemailer.createTransport({
 const handleStripeWebhook = async (req, res) => {
   const sig = req.headers['stripe-signature'];
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-  let event;
+  var eventData = null;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
       const { metadata } = session;
 
-      // Create order
+      const eventData = await Event.findById(metadata.eventId);
+
+      // Check if the user is already registered for the event
+    const existingOrder = await Order.findOne({ buyer: metadata.userId, event: metadata.eventId });
+
+    if (existingOrder) {
+      // User is already registered for the event
+      return res.status(400).json({ success: false, message: 'You have already registered for this event.' });
+    }
+
+      // Create order with stripeId
       const newOrder = await Order.create({
         event: metadata.eventId,
         buyer: metadata.buyerId,
         totalAmount: session.amount_total / 100,
         createdAt: new Date(),
+        stripeId: session.id, // Include stripeId here
       });
 
       // Get buyer details
@@ -88,7 +101,7 @@ const handleStripeWebhook = async (req, res) => {
         from: process.env.EMAIL_USER,
         to: buyer.email,
         subject: 'Order Confirmation',
-        text: `Thank you for your purchase!\n\nEvent: ${session.line_items[0].description}\nAmount: ${session.amount_total / 100} INR\n\nYour order has been placed successfully.`,
+        text: `Thank you for your purchase!\n\nEvent: ${eventData.title}\nAmount: ${session.amount_total / 100} INR\n\nYour order has been placed successfully.`,
       });
 
       res.json({ received: true });
@@ -100,6 +113,7 @@ const handleStripeWebhook = async (req, res) => {
     res.status(400).send(`Webhook Error: ${error.message}`);
   }
 };
+
 
 const getOrdersByEvent = async (req, res) => {
   try {
@@ -156,23 +170,19 @@ const getOrdersByUser = async (req, res) => {
   try {
     
 
-    const { userId, limit = 3, page = 1 } = req.query;
-    const skipAmount = (Number(page) - 1) * Number(limit);
+    const userId = req.params.id;
 
     const orders = await Order.find({ buyer: userId })
       .sort({ createdAt: 'desc' })
-      .skip(skipAmount)
-      .limit(Number(limit))
       .populate({
         path: 'event',
         populate: { path: 'organizer', select: '_id firstName lastName' },
       });
 
-    const ordersCount = await Order.countDocuments({ buyer: userId });
+
 
     res.status(200).json({
-      data: orders,
-      totalPages: Math.ceil(ordersCount / Number(limit)),
+      data: orders
     });
   } catch (error) {
    

@@ -1,4 +1,5 @@
 const Event = require('../models/event');
+const Order = require('../models/order');
 
 const createEvent = async (req, res) => {
   try {
@@ -56,6 +57,9 @@ const deleteEvent = async (req, res) => {
     if (!eventToDelete) {
       return res.status(404).json({ success: false, message: 'Event not found' });
     }
+    // Delete all orders related to the event
+    await Order.deleteMany({ event: id });
+
     res.status(200).json({ success: true, message: 'Event deleted successfully' });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
