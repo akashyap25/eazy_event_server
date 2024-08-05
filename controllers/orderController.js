@@ -65,20 +65,21 @@ const transporter = nodemailer.createTransport({
 const handleStripeWebhook = async (req, res) => {
   const sig = req.headers['stripe-signature'];
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  var eventData = null;
 
   try {
     const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
       const { metadata } = session;
+      
 
       const eventData = await Event.findById(metadata.eventId);
 
-      // Check if the user is already registered for the event
-    const existingOrder = await Order.findOne({ buyer: metadata.userId, event: metadata.eventId });
 
+      // Check if the user is already registered for the event
+    const existingOrder = await Order.findOne({ buyer: metadata.buyerId, event: metadata.eventId });
     if (existingOrder) {
       // User is already registered for the event
       return res.status(400).json({ success: false, message: 'You have already registered for this event.' });
@@ -119,52 +120,42 @@ const getOrdersByEvent = async (req, res) => {
   try {
     
 
-    const { searchString, eventId } = req.query;
-    const orders = await Order.aggregate([
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'buyer',
-          foreignField: '_id',
-          as: 'buyer',
-        },
-      },
-      { $unwind: '$buyer' },
-      {
-        $lookup: {
-          from: 'events',
-          localField: 'event',
-          foreignField: '_id',
-          as: 'event',
-        },
-      },
-      { $unwind: '$event' },
-      {
-        $project: {
-          _id: 1,
-          totalAmount: 1,
-          createdAt: 1,
-          eventTitle: '$event.title',
-          eventId: '$event._id',
-          buyer: { $concat: ['$buyer.firstName', ' ', '$buyer.lastName'] },
-        },
-      },
-      {
-        $match: {
-          $and: [
-            { eventId: mongoose.Types.ObjectId(eventId) },
-            { buyer: { $regex: new RegExp(searchString, 'i') } },
-          ],
-        },
-      },
-    ]);
+    const eventId = req.params.eventId;
 
-    res.status(200).json(orders);
+    const orders = await Order.find({ event: eventId })
+      .sort({ createdAt: 'desc' })
+      .populate('buyer');
+
+    res.status(200).json({
+      data: orders
+    });
   } catch (error) {
-   
+    
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+const getRegisteredUsers = async (req, res) => {
+  try {
+    
+
+    const eventId = req.params.id;
+
+    const orders = await Order.find({ event: eventId })
+      .sort({ createdAt: 'desc' })
+      .populate('buyer');
+
+    const users = orders.map((order) => order.buyer);
+
+    res.status(200).json({
+      data: users
+    });
+  } catch (error) {
+    
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 
 const getOrdersByUser = async (req, res) => {
   try {
@@ -195,5 +186,6 @@ module.exports = {
   createOrder,
   getOrdersByEvent,
   getOrdersByUser,
-  handleStripeWebhook
+  handleStripeWebhook,
+  getRegisteredUsers
 };

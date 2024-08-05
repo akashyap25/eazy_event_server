@@ -7,6 +7,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 const connectToMongo = require('./db/db');
 const cors = require('cors');
 
@@ -26,8 +27,11 @@ app.use('/api/events', eventRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/tasks', taskRoutes);
+
 
 app.listen(port, () => {
   connectToMongo();
   console.log(`Server is running on port ${port}`);
 });
+
