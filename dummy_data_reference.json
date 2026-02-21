@@ -1,0 +1,1569 @@
+{
+  "users": [
+    {
+      "_id": "68c612ab60cc81cd1f860b73",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b74",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b75",
+      "firstName": "Mike",
+      "lastName": "Johnson",
+      "email": "mike.johnson@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b76",
+      "firstName": "Sarah",
+      "lastName": "Wilson",
+      "email": "sarah.wilson@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b77",
+      "firstName": "David",
+      "lastName": "Brown",
+      "email": "david.brown@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b78",
+      "firstName": "Emily",
+      "lastName": "Davis",
+      "email": "emily.davis@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b79",
+      "firstName": "Alex",
+      "lastName": "Miller",
+      "email": "alex.miller@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b7a",
+      "firstName": "Lisa",
+      "lastName": "Garcia",
+      "email": "lisa.garcia@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b7b",
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.com",
+      "role": "admin"
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b7c",
+      "firstName": "Moderator",
+      "lastName": "User",
+      "email": "moderator@example.com",
+      "role": "moderator"
+    }
+  ],
+  "categories": [
+    {
+      "_id": "68c612aa60cc81cd1f860b65",
+      "name": "Technology",
+      "description": "Tech conferences, workshops, and meetups"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b66",
+      "name": "Business",
+      "description": "Business networking, seminars, and conferences"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b67",
+      "name": "Music",
+      "description": "Concerts, festivals, and music events"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b68",
+      "name": "Sports",
+      "description": "Sports events, tournaments, and competitions"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b69",
+      "name": "Education",
+      "description": "Educational workshops, courses, and seminars"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b6a",
+      "name": "Art & Culture",
+      "description": "Art exhibitions, cultural events, and performances"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b6b",
+      "name": "Food & Drink",
+      "description": "Food festivals, wine tastings, and culinary events"
+    },
+    {
+      "_id": "68c612aa60cc81cd1f860b6c",
+      "name": "Health & Wellness",
+      "description": "Fitness events, wellness workshops, and health seminars"
+    }
+  ],
+  "events": [
+    {
+      "_id": "68c612ab60cc81cd1f860b7e",
+      "title": "Cooking Class: Italian Cuisine",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b67",
+      "startDateTime": "2025-10-27T11:25:19.528Z",
+      "price": "44",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b7f",
+      "title": "Wine Tasting Event",
+      "organizer": "68c612ab60cc81cd1f860b78",
+      "category": "68c612aa60cc81cd1f860b66",
+      "startDateTime": "2025-09-30T10:14:08.370Z",
+      "price": "176",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b80",
+      "title": "Business Networking Mixer",
+      "organizer": "68c612ab60cc81cd1f860b78",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-12-01T00:25:45.101Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b81",
+      "title": "Tech Innovation Summit 2024",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-12-03T19:32:20.607Z",
+      "price": "205",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b82",
+      "title": "Digital Marketing Masterclass",
+      "organizer": "68c612ab60cc81cd1f860b77",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-09-29T08:26:14.525Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b83",
+      "title": "Sushi Making Workshop",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b69",
+      "startDateTime": "2025-10-02T19:22:46.959Z",
+      "price": "206",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b84",
+      "title": "Yoga & Meditation Retreat",
+      "organizer": "68c612ab60cc81cd1f860b77",
+      "category": "68c612aa60cc81cd1f860b67",
+      "startDateTime": "2025-10-23T05:07:09.822Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b85",
+      "title": "Cybersecurity Summit",
+      "organizer": "68c612ab60cc81cd1f860b75",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-10-17T14:19:16.951Z",
+      "price": "135",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b86",
+      "title": "Food & Wine Festival",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-12-05T06:45:09.275Z",
+      "price": "131",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b87",
+      "title": "Digital Marketing Masterclass",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b66",
+      "startDateTime": "2025-10-21T23:24:09.687Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b88",
+      "title": "Fitness Bootcamp",
+      "organizer": "68c612ab60cc81cd1f860b73",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-10-29T10:27:31.656Z",
+      "price": "153",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b89",
+      "title": "Food & Wine Festival",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-10-16T11:47:35.548Z",
+      "price": "173",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b8a",
+      "title": "Cultural Heritage Exhibition",
+      "organizer": "68c612ab60cc81cd1f860b78",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-10-05T01:38:16.731Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b8b",
+      "title": "Startup Pitch Competition",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-11-14T21:40:02.128Z",
+      "price": "114",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b8c",
+      "title": "Wine Tasting Event",
+      "organizer": "68c612ab60cc81cd1f860b77",
+      "category": "68c612aa60cc81cd1f860b6b",
+      "startDateTime": "2025-10-21T22:01:32.368Z",
+      "price": "135",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b8d",
+      "title": "Food & Wine Festival",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b66",
+      "startDateTime": "2025-10-01T01:49:23.275Z",
+      "price": "137",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b8e",
+      "title": "Entrepreneurship Workshop",
+      "organizer": "68c612ab60cc81cd1f860b7a",
+      "category": "68c612aa60cc81cd1f860b65",
+      "startDateTime": "2025-09-23T01:44:32.736Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b8f",
+      "title": "Cultural Heritage Exhibition",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b67",
+      "startDateTime": "2025-10-07T14:34:49.473Z",
+      "price": "134",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b90",
+      "title": "Cybersecurity Summit",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-10-25T16:51:46.724Z",
+      "price": "201",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b91",
+      "title": "Music Festival 2024",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b69",
+      "startDateTime": "2025-09-22T12:31:59.042Z",
+      "price": "10",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b92",
+      "title": "Dance Performance Night",
+      "organizer": "68c612ab60cc81cd1f860b7b",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-10-07T10:43:52.123Z",
+      "price": "87",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b93",
+      "title": "Sushi Making Workshop",
+      "organizer": "68c612ab60cc81cd1f860b7a",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-09-30T02:34:48.392Z",
+      "price": "189",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b94",
+      "title": "Entrepreneurship Workshop",
+      "organizer": "68c612ab60cc81cd1f860b7a",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-11-27T13:41:29.661Z",
+      "price": "162",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b95",
+      "title": "Startup Pitch Competition",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-09-18T17:09:51.122Z",
+      "price": "201",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b96",
+      "title": "CrossFit Competition",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b69",
+      "startDateTime": "2025-12-01T06:41:06.841Z",
+      "price": "208",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b97",
+      "title": "Business Networking Mixer",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-11-05T06:01:17.155Z",
+      "price": "125",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b98",
+      "title": "Digital Marketing Masterclass",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b66",
+      "startDateTime": "2025-10-27T23:20:49.239Z",
+      "price": "39",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b99",
+      "title": "Music Festival 2024",
+      "organizer": "68c612ab60cc81cd1f860b7a",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-11-14T09:01:00.084Z",
+      "price": "38",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b9a",
+      "title": "Blockchain Technology Seminar",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b67",
+      "startDateTime": "2025-11-20T14:43:08.490Z",
+      "price": "19",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b9b",
+      "title": "Sushi Making Workshop",
+      "organizer": "68c612ab60cc81cd1f860b7a",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-11-07T17:52:16.550Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b9c",
+      "title": "Wine Tasting Event",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-11-14T16:01:58.947Z",
+      "price": "149",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b9d",
+      "title": "Poetry Reading Night",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b65",
+      "startDateTime": "2025-11-16T23:45:47.590Z",
+      "price": "57",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b9e",
+      "title": "Startup Pitch Competition",
+      "organizer": "68c612ab60cc81cd1f860b75",
+      "category": "68c612aa60cc81cd1f860b69",
+      "startDateTime": "2025-09-30T22:45:04.188Z",
+      "price": "148",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860b9f",
+      "title": "Digital Marketing Masterclass",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b69",
+      "startDateTime": "2025-10-24T01:38:58.735Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba0",
+      "title": "Startup Pitch Competition",
+      "organizer": "68c612ab60cc81cd1f860b78",
+      "category": "68c612aa60cc81cd1f860b6b",
+      "startDateTime": "2025-10-11T23:37:21.786Z",
+      "price": "180",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba1",
+      "title": "Sushi Making Workshop",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-11-10T16:54:53.070Z",
+      "price": "102",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba2",
+      "title": "Entrepreneurship Workshop",
+      "organizer": "68c612ab60cc81cd1f860b77",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-10-07T13:50:58.116Z",
+      "price": "200",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba3",
+      "title": "Blockchain Technology Seminar",
+      "organizer": "68c612ab60cc81cd1f860b78",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-11-20T04:23:18.294Z",
+      "price": "43",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba4",
+      "title": "Cloud Computing Workshop",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b65",
+      "startDateTime": "2025-11-18T10:42:20.118Z",
+      "price": "24",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba5",
+      "title": "Art Gallery Opening",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-10-16T06:32:43.918Z",
+      "price": "107",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba6",
+      "title": "Blockchain Technology Seminar",
+      "organizer": "68c612ab60cc81cd1f860b74",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-12-12T10:51:31.649Z",
+      "price": "84",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba7",
+      "title": "Cybersecurity Summit",
+      "organizer": "68c612ab60cc81cd1f860b75",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-09-25T22:11:22.869Z",
+      "price": "102",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba8",
+      "title": "Digital Marketing Masterclass",
+      "organizer": "68c612ab60cc81cd1f860b7a",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-09-22T00:36:13.092Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860ba9",
+      "title": "Tech Innovation Summit 2024",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b68",
+      "startDateTime": "2025-12-10T12:26:23.248Z",
+      "price": "203",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860baa",
+      "title": "Startup Pitch Competition",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b65",
+      "startDateTime": "2025-09-16T08:49:05.718Z",
+      "price": "0",
+      "isFree": true
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860bab",
+      "title": "Digital Marketing Masterclass",
+      "organizer": "68c612ab60cc81cd1f860b78",
+      "category": "68c612aa60cc81cd1f860b6b",
+      "startDateTime": "2025-09-24T11:30:43.710Z",
+      "price": "64",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860bac",
+      "title": "Cultural Heritage Exhibition",
+      "organizer": "68c612ab60cc81cd1f860b76",
+      "category": "68c612aa60cc81cd1f860b69",
+      "startDateTime": "2025-12-04T16:46:44.024Z",
+      "price": "167",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860bad",
+      "title": "Yoga & Meditation Retreat",
+      "organizer": "68c612ab60cc81cd1f860b7b",
+      "category": "68c612aa60cc81cd1f860b6a",
+      "startDateTime": "2025-11-20T04:14:41.391Z",
+      "price": "161",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860bae",
+      "title": "Craft Beer Festival",
+      "organizer": "68c612ab60cc81cd1f860b79",
+      "category": "68c612aa60cc81cd1f860b6c",
+      "startDateTime": "2025-11-02T21:10:54.210Z",
+      "price": "125",
+      "isFree": false
+    },
+    {
+      "_id": "68c612ab60cc81cd1f860baf",
+      "title": "IoT Innovation Conference",
+      "organizer": "68c612ab60cc81cd1f860b77",
+      "category": "68c612aa60cc81cd1f860b6b",
+      "startDateTime": "2025-11-04T04:28:18.312Z",
+      "price": "40",
+      "isFree": false
+    }
+  ],
+  "orders": [
+    {
+      "_id": "68c612ad60cc81cd1f860be7",
+      "event": "68c612ab60cc81cd1f860ba2",
+      "totalAmount": "200"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860be8",
+      "event": "68c612ab60cc81cd1f860b8a",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860be9",
+      "event": "68c612ab60cc81cd1f860b80",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bea",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "totalAmount": "447"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860beb",
+      "event": "68c612ab60cc81cd1f860b99",
+      "totalAmount": "38"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bec",
+      "event": "68c612ab60cc81cd1f860ba2",
+      "totalAmount": "400"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bed",
+      "event": "68c612ab60cc81cd1f860baf",
+      "totalAmount": "120"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bee",
+      "event": "68c612ab60cc81cd1f860ba5",
+      "totalAmount": "107"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bef",
+      "event": "68c612ab60cc81cd1f860b89",
+      "totalAmount": "346"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf0",
+      "event": "68c612ab60cc81cd1f860b89",
+      "totalAmount": "346"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf1",
+      "event": "68c612ab60cc81cd1f860b8a",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf2",
+      "event": "68c612ab60cc81cd1f860ba7",
+      "totalAmount": "204"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf3",
+      "event": "68c612ab60cc81cd1f860ba2",
+      "totalAmount": "400"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf4",
+      "event": "68c612ab60cc81cd1f860ba2",
+      "totalAmount": "600"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf5",
+      "event": "68c612ab60cc81cd1f860b8d",
+      "totalAmount": "137"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf6",
+      "event": "68c612ab60cc81cd1f860b8d",
+      "totalAmount": "411"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf7",
+      "event": "68c612ab60cc81cd1f860baa",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf8",
+      "event": "68c612ab60cc81cd1f860baf",
+      "totalAmount": "80"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bf9",
+      "event": "68c612ab60cc81cd1f860b86",
+      "totalAmount": "393"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bfa",
+      "event": "68c612ab60cc81cd1f860b92",
+      "totalAmount": "87"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bfb",
+      "event": "68c612ab60cc81cd1f860b7e",
+      "totalAmount": "132"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bfc",
+      "event": "68c612ab60cc81cd1f860ba3",
+      "totalAmount": "86"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bfd",
+      "event": "68c612ab60cc81cd1f860b8d",
+      "totalAmount": "411"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bfe",
+      "event": "68c612ab60cc81cd1f860b9f",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860bff",
+      "event": "68c612ab60cc81cd1f860ba4",
+      "totalAmount": "48"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c00",
+      "event": "68c612ab60cc81cd1f860ba7",
+      "totalAmount": "102"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c01",
+      "event": "68c612ab60cc81cd1f860b84",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c02",
+      "event": "68c612ab60cc81cd1f860ba6",
+      "totalAmount": "84"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c03",
+      "event": "68c612ab60cc81cd1f860b87",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c04",
+      "event": "68c612ab60cc81cd1f860ba9",
+      "totalAmount": "406"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c05",
+      "event": "68c612ab60cc81cd1f860b7e",
+      "totalAmount": "88"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c06",
+      "event": "68c612ab60cc81cd1f860b9d",
+      "totalAmount": "57"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c07",
+      "event": "68c612ab60cc81cd1f860b90",
+      "totalAmount": "603"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c08",
+      "event": "68c612ab60cc81cd1f860b8a",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c09",
+      "event": "68c612ab60cc81cd1f860b87",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c0a",
+      "event": "68c612ab60cc81cd1f860b9b",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c0b",
+      "event": "68c612ab60cc81cd1f860bab",
+      "totalAmount": "128"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c0c",
+      "event": "68c612ab60cc81cd1f860b86",
+      "totalAmount": "131"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c0d",
+      "event": "68c612ab60cc81cd1f860b9b",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c0e",
+      "event": "68c612ab60cc81cd1f860b83",
+      "totalAmount": "206"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c0f",
+      "event": "68c612ab60cc81cd1f860b91",
+      "totalAmount": "10"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c10",
+      "event": "68c612ab60cc81cd1f860b86",
+      "totalAmount": "131"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c11",
+      "event": "68c612ab60cc81cd1f860ba1",
+      "totalAmount": "102"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c12",
+      "event": "68c612ab60cc81cd1f860b97",
+      "totalAmount": "250"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c13",
+      "event": "68c612ab60cc81cd1f860baa",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c14",
+      "event": "68c612ab60cc81cd1f860b94",
+      "totalAmount": "162"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c15",
+      "event": "68c612ab60cc81cd1f860ba9",
+      "totalAmount": "406"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c16",
+      "event": "68c612ab60cc81cd1f860b90",
+      "totalAmount": "402"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c17",
+      "event": "68c612ab60cc81cd1f860b7e",
+      "totalAmount": "132"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c18",
+      "event": "68c612ab60cc81cd1f860b9d",
+      "totalAmount": "114"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c19",
+      "event": "68c612ab60cc81cd1f860ba7",
+      "totalAmount": "306"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c1a",
+      "event": "68c612ab60cc81cd1f860ba5",
+      "totalAmount": "321"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c1b",
+      "event": "68c612ab60cc81cd1f860b94",
+      "totalAmount": "486"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c1c",
+      "event": "68c612ab60cc81cd1f860ba7",
+      "totalAmount": "204"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c1d",
+      "event": "68c612ab60cc81cd1f860b8b",
+      "totalAmount": "114"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c1e",
+      "event": "68c612ab60cc81cd1f860ba9",
+      "totalAmount": "609"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c1f",
+      "event": "68c612ab60cc81cd1f860b94",
+      "totalAmount": "486"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c20",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "totalAmount": "444"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c21",
+      "event": "68c612ab60cc81cd1f860b92",
+      "totalAmount": "261"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c22",
+      "event": "68c612ab60cc81cd1f860ba8",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c23",
+      "event": "68c612ab60cc81cd1f860b9d",
+      "totalAmount": "114"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c24",
+      "event": "68c612ab60cc81cd1f860b8e",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c25",
+      "event": "68c612ab60cc81cd1f860b91",
+      "totalAmount": "10"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c26",
+      "event": "68c612ab60cc81cd1f860b83",
+      "totalAmount": "206"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c27",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "totalAmount": "447"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c28",
+      "event": "68c612ab60cc81cd1f860ba3",
+      "totalAmount": "129"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c29",
+      "event": "68c612ab60cc81cd1f860ba2",
+      "totalAmount": "600"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c2a",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "totalAmount": "149"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c2b",
+      "event": "68c612ab60cc81cd1f860b9f",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c2c",
+      "event": "68c612ab60cc81cd1f860b8e",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c2d",
+      "event": "68c612ab60cc81cd1f860b85",
+      "totalAmount": "270"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c2e",
+      "event": "68c612ab60cc81cd1f860baf",
+      "totalAmount": "40"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c2f",
+      "event": "68c612ab60cc81cd1f860b8b",
+      "totalAmount": "114"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c30",
+      "event": "68c612ab60cc81cd1f860b89",
+      "totalAmount": "346"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c31",
+      "event": "68c612ab60cc81cd1f860ba5",
+      "totalAmount": "321"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c32",
+      "event": "68c612ab60cc81cd1f860b8e",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c33",
+      "event": "68c612ab60cc81cd1f860ba8",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c34",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "totalAmount": "296"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c35",
+      "event": "68c612ab60cc81cd1f860b90",
+      "totalAmount": "201"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c36",
+      "event": "68c612ab60cc81cd1f860baf",
+      "totalAmount": "80"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c37",
+      "event": "68c612ab60cc81cd1f860b94",
+      "totalAmount": "162"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c38",
+      "event": "68c612ab60cc81cd1f860b94",
+      "totalAmount": "324"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c39",
+      "event": "68c612ab60cc81cd1f860ba8",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c3a",
+      "event": "68c612ab60cc81cd1f860b83",
+      "totalAmount": "206"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c3b",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "totalAmount": "148"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c3c",
+      "event": "68c612ab60cc81cd1f860b88",
+      "totalAmount": "153"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c3d",
+      "event": "68c612ab60cc81cd1f860b90",
+      "totalAmount": "402"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c3e",
+      "event": "68c612ab60cc81cd1f860b98",
+      "totalAmount": "78"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c3f",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "totalAmount": "447"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c40",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "totalAmount": "447"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c41",
+      "event": "68c612ab60cc81cd1f860ba2",
+      "totalAmount": "400"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c42",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "totalAmount": "149"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c43",
+      "event": "68c612ab60cc81cd1f860b8e",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c44",
+      "event": "68c612ab60cc81cd1f860ba5",
+      "totalAmount": "107"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c45",
+      "event": "68c612ab60cc81cd1f860bad",
+      "totalAmount": "322"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c46",
+      "event": "68c612ab60cc81cd1f860b8f",
+      "totalAmount": "268"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c47",
+      "event": "68c612ab60cc81cd1f860b98",
+      "totalAmount": "78"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c48",
+      "event": "68c612ab60cc81cd1f860ba5",
+      "totalAmount": "214"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c49",
+      "event": "68c612ab60cc81cd1f860b80",
+      "totalAmount": "0"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c4a",
+      "event": "68c612ab60cc81cd1f860ba4",
+      "totalAmount": "48"
+    }
+  ],
+  "tasks": [
+    {
+      "_id": "68c612ad60cc81cd1f860c4c",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b8a",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c4d",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860ba1",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c4e",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b8b",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c4f",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860b7f",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c50",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b9f",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c51",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b8c",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c52",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b93",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c53",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b97",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c54",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b96",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c55",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b8d",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c56",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860ba3",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c57",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860bad",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c58",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860ba7",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c59",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b82",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c5a",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860bac",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c5b",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b97",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c5c",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b97",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c5d",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b99",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c5e",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860b92",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c5f",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b90",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c60",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c61",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860b98",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c62",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b81",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c63",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b86",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c64",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b9c",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c65",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b80",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c66",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b7f",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c67",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c68",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b9d",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c69",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b96",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c6a",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c6b",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860b9d",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c6c",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860b8e",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c6d",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860ba1",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c6e",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b7e",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c6f",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860ba0",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c70",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b91",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c71",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860ba4",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c72",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860b8b",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c73",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b92",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c74",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860ba9",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c75",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b8b",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c76",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b95",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c77",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860ba8",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c78",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860b9e",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c79",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860ba8",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c7a",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860b92",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c7b",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860ba3",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c7c",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860b9a",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c7d",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b85",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c7e",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860ba1",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c7f",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b8f",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c80",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860bac",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c81",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b9b",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c82",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860ba0",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c83",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860bac",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c84",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b9b",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c85",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860ba7",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c86",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860bac",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c87",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860ba4",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c88",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b81",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c89",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860b81",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c8a",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b93",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c8b",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b9b",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c8c",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b8e",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c8d",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b81",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c8e",
+      "title": "Marketing Task",
+      "event": "68c612ab60cc81cd1f860b85",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c8f",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860b8b",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c90",
+      "title": "Photography Task",
+      "event": "68c612ab60cc81cd1f860ba6",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c91",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860b88",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c92",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860ba4",
+      "status": "completed"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c93",
+      "title": "Cleanup Task",
+      "event": "68c612ab60cc81cd1f860b81",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c94",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860b93",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c95",
+      "title": "Setup Task",
+      "event": "68c612ab60cc81cd1f860b92",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c96",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860bac",
+      "status": "overdue"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c97",
+      "title": "Catering Task",
+      "event": "68c612ab60cc81cd1f860b8a",
+      "status": "pending"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c98",
+      "title": "Registration Task",
+      "event": "68c612ab60cc81cd1f860b97",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c99",
+      "title": "Technical Support Task",
+      "event": "68c612ab60cc81cd1f860b9f",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c9a",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860b80",
+      "status": "in-progress"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c9b",
+      "title": "Security Task",
+      "event": "68c612ab60cc81cd1f860ba6",
+      "status": "completed"
+    }
+  ],
+  "templates": [
+    {
+      "_id": "68c612ad60cc81cd1f860c9d",
+      "name": "Tech Conference Template",
+      "category": "68c612aa60cc81cd1f860b65"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c9e",
+      "name": "Music Festival Template",
+      "category": "68c612aa60cc81cd1f860b67"
+    },
+    {
+      "_id": "68c612ad60cc81cd1f860c9f",
+      "name": "Workshop Template",
+      "category": "68c612aa60cc81cd1f860b69"
+    }
+  ]
+}
