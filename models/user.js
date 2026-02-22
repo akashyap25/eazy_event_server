@@ -12,7 +12,9 @@ const UserSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: true,
+    required: function() {
+      return this.authProvider === 'local';
+    },
     minlength: 8
   },
   passwordHistory: [{
@@ -81,6 +83,20 @@ const UserSchema = new mongoose.Schema({
     showEmail: { type: Boolean, default: false },
     showPhone: { type: Boolean, default: false },
     allowMessages: { type: Boolean, default: true }
+  },
+  
+  // OAuth provider IDs
+  oauth: {
+    googleId: { type: String, sparse: true },
+    githubId: { type: String, sparse: true },
+    facebookId: { type: String, sparse: true },
+    linkedinId: { type: String, sparse: true },
+    twitterId: { type: String, sparse: true }
+  },
+  authProvider: {
+    type: String,
+    enum: ['local', 'google', 'github', 'facebook', 'linkedin', 'twitter'],
+    default: 'local'
   }
 }, { 
   timestamps: true,

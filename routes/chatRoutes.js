@@ -1,4 +1,5 @@
 const express = require('express');
+const { body } = require('express-validator');
 const { authenticateToken, requireAuth } = require('../middlewares/authMiddleware');
 const { handleValidationErrors, commonValidations } = require("../utils/validationUtils");
 const ChatService = require('../services/chatService');
@@ -6,22 +7,20 @@ const { ChatRoom, Message } = require('../models/chat');
 
 const router = express.Router();
 
-// Create chat room for an event
-router.post('/rooms',
+// Find or create a chat room for an event (eventId in URL) – must be before other /events/:eventId routes
+router.post('/events/:eventId/rooms',
   authenticateToken,
   requireAuth,
   commonValidations.mongoId('eventId'),
   handleValidationErrors,
   async (req, res) => {
     try {
-      const { eventId, name, description, type, isPrivate, settings } = req.body;
-      
-      const chatRoom = await ChatService.createChatRoom(eventId, req.user._id, {
-        name,
-        description,
-        type,
-        isPrivate,
-        settings
+      const { eventId } = req.params;
+      const { name, description } = req.body || {};
+
+      const chatRoom = await ChatService.findOrCreateEventChatRoom(eventId, req.user._id, {
+        name: name || 'Event Chat',
+        description: description || 'General discussion for this event'
       });
 
       res.status(201).json({
@@ -46,12 +45,46 @@ router.get('/events/:eventId/rooms',
   async (req, res) => {
     try {
       const { eventId } = req.params;
-      
+
       const chatRooms = await ChatService.getEventChatRooms(eventId, req.user._id);
 
       res.json({
         success: true,
         data: chatRooms
+      });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    }
+  }
+);
+
+// Create chat room for an event (eventId in body) – legacy
+router.post('/rooms',
+  authenticateToken,
+  requireAuth,
+  body('eventId')
+    .customSanitizer((val) => (typeof val === 'string' ? val : (val?.$oid ?? val?._id ?? val?.id ?? '')))
+    .isMongoId()
+    .withMessage('eventId must be a valid MongoDB ObjectId'),
+  handleValidationErrors,
+  async (req, res) => {
+    try {
+      const { eventId, name, description, type, isPrivate, settings } = req.body;
+
+      const chatRoom = await ChatService.findOrCreateEventChatRoom(eventId, req.user._id, {
+        name: name || 'Event Chat',
+        description,
+        type,
+        isPrivate,
+        settings
+      });
+
+      res.status(201).json({
+        success: true,
+        data: chatRoom
       });
     } catch (error) {
       res.status(400).json({

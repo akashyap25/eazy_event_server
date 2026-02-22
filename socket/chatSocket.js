@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/user');
+const User = require('../models/user');
 const ChatService = require('../services/chatService');
+const { securityConfig } = require('../config/security');
 
 class ChatSocket {
   constructor(io) {
@@ -10,36 +11,33 @@ class ChatSocket {
   }
 
   setupMiddleware() {
-    // Authentication middleware for Socket.IO (optional for read-only access)
     this.io.use(async (socket, next) => {
       try {
-        const token = socket.handshake.auth.token || socket.handshake.headers.authorization?.replace('Bearer ', '');
-        
+        const token = socket.handshake.auth?.token || socket.handshake.headers?.authorization?.replace('Bearer ', '');
         if (!token) {
-          // Allow connection without authentication for read-only access
+          console.log('[ChatSocket] Connect: no token. handshake.auth=', JSON.stringify(socket.handshake.auth || {}));
           socket.userId = null;
           socket.user = null;
           socket.isAuthenticated = false;
           return next();
         }
-
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const secret = securityConfig.jwt.secret;
+        const decoded = jwt.verify(token, secret);
         const user = await User.findById(decoded.userId).select('-password');
-        
         if (!user) {
-          // Allow connection without authentication for read-only access
+          console.log('[ChatSocket] Connect: token valid but user not found, userId=', decoded.userId);
           socket.userId = null;
           socket.user = null;
           socket.isAuthenticated = false;
           return next();
         }
-
         socket.userId = user._id.toString();
         socket.user = user;
         socket.isAuthenticated = true;
+        console.log('[ChatSocket] Connect: authenticated', socket.userId);
         next();
       } catch (error) {
-        // Allow connection without authentication for read-only access
+        console.log('[ChatSocket] Connect: auth failed', error.message);
         socket.userId = null;
         socket.user = null;
         socket.isAuthenticated = false;
@@ -74,35 +72,45 @@ class ChatSocket {
         }
       });
 
-      // Join specific chat room
-      socket.on('join_room', async (roomId) => {
+      // Join specific chat room. Only event owner, collaborators, and registered attendees can join.
+      socket.on('join_room', async (payload) => {
         try {
-          // For unauthenticated users, allow joining any room for read-only access
+          const roomId = typeof payload === 'object' && payload !== null ? payload.roomId : payload;
+          const displayName = typeof payload === 'object' && payload !== null ? (payload.displayName || 'Guest').trim() : 'Guest';
+          if (!roomId) {
+            socket.emit('error', { message: 'roomId is required' });
+            return;
+          }
+
           if (!socket.isAuthenticated) {
-            socket.join(`room_${roomId}`);
-            console.log(`Anonymous user joined room ${roomId}`);
-            socket.emit('room_joined', { roomId, room: { _id: roomId, name: 'Event Chat' } });
+            socket.emit('error', { message: 'Sign in to join the event chat.' });
             return;
           }
 
           const chatRoom = await ChatService.getChatRoomById(roomId);
-          
-          if (!chatRoom.isParticipant(socket.userId)) {
-            socket.emit('error', { message: 'You are not a participant in this room' });
+          const eventId = chatRoom.event?._id || chatRoom.event;
+          if (!eventId) {
+            socket.emit('error', { message: 'Invalid chat room.' });
             return;
           }
 
-          socket.join(`room_${roomId}`);
-          if (socket.user) {
-            console.log(`User ${socket.user.username} joined room ${chatRoom.name}`);
-          } else {
-            console.log(`Anonymous user joined room ${chatRoom.name}`);
+          const canParticipate = await ChatService.canUserParticipateInEventChat(eventId, socket.userId);
+          if (!canParticipate) {
+            socket.emit('error', { message: 'Only the event owner, collaborators, and registered attendees can join the event chat.' });
+            return;
           }
 
-          // Mark messages as read
-          await ChatService.markAsRead(roomId, socket.userId);
+          const eventRole = await ChatService.getEventRoleForUser(eventId, socket.userId);
+          socket.eventRole = eventRole;
 
-          socket.emit('room_joined', { roomId, room: chatRoom });
+          if (!chatRoom.isParticipant(socket.userId)) {
+            await chatRoom.addParticipant(socket.userId, 'member');
+          }
+
+          socket.join(`room_${roomId}`);
+          console.log(`User ${socket.user.username} (${eventRole}) joined room ${chatRoom.name}`);
+          await ChatService.markAsRead(roomId, socket.userId);
+          socket.emit('room_joined', { roomId, room: chatRoom, eventRole });
         } catch (error) {
           socket.emit('error', { message: error.message });
         }
@@ -119,11 +127,15 @@ class ChatSocket {
         socket.emit('room_left', { roomId });
       });
 
-      // Send message
+      // Send message. Only authenticated users who joined as owner/collaborator/attendee can send.
       socket.on('send_message', async (data) => {
         try {
-          if (!socket.isAuthenticated) {
-            socket.emit('error', { message: 'Authentication required to send messages' });
+          if (!socket.isAuthenticated || !socket.userId) {
+            socket.emit('error', { message: 'Sign in to send messages.' });
+            return;
+          }
+          if (!socket.eventRole) {
+            socket.emit('error', { message: 'Only event owner, collaborators, and registered attendees can send messages. Join the room first.' });
             return;
           }
 
@@ -138,20 +150,14 @@ class ChatSocket {
             content: content.trim(),
             messageType,
             replyTo,
-            mentions
+            mentions,
+            senderEventRole: socket.eventRole
           });
 
-          // Broadcast message to all users in the room
-          this.io.to(`room_${roomId}`).emit('new_message', {
-            roomId,
-            message
-          });
+          this.io.to(`room_${roomId}`).emit('new_message', { roomId, message });
 
-          // Update typing status
-          socket.to(`room_${roomId}`).emit('user_stopped_typing', {
-            userId: socket.userId,
-            username: socket.user ? socket.user.username : 'Anonymous'
-          });
+          const displayName = socket.user?.firstName || socket.user?.username || 'User';
+          socket.to(`room_${roomId}`).emit('user_stopped_typing', { userId: socket.userId, username: displayName });
 
         } catch (error) {
           socket.emit('error', { message: error.message });

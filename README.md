@@ -110,6 +110,17 @@ STRIPE_SECRET_KEY=your_stripe_secret
 | GET | `/api/calendar-export/:eventId/google` | Google Calendar link |
 | GET | `/api/calendar-export/:eventId/outlook` | Outlook link |
 
+### Event Chat (Socket.IO + REST)
+Real-time chat for events. Only event owner, collaborators, and registered attendees can join and send messages. Messages are persisted in MongoDB.
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/chat/events/:eventId/rooms` | Get chat rooms for event (auth required) |
+| POST | `/api/chat/events/:eventId/rooms` | Find or create event chat room (auth required) |
+| GET | `/api/chat/rooms/:roomId/messages` | Get message history (auth + participant required) |
+
+**Socket.IO:** Connect with `auth: { token: accessToken }`. Events: `join_room` (payload: `{ roomId, displayName }`), `send_message` (payload: `{ roomId, content }`). Messages include `senderEventRole`: `owner` \| `collaborator` \| `attendee`.
+
 ## Project Structure
 
 ```

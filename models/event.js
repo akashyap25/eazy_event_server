@@ -9,11 +9,23 @@ const EventSchema = new mongoose.Schema({
   imageUrl: { type: String },
   startDateTime: { type: Date, required: true },
   endDateTime: { type: Date, required: true },
-  price: { type: String },
+  price: { type: Number, default: 0 },
   isFree: { type: Boolean, default: false },
   url: { type: String },
   category: { type: mongoose.Schema.ObjectId, ref: 'Category' },
   organizer: { type: mongoose.Schema.ObjectId, ref: 'User' },
+  
+  // Organization/Multi-tenant support
+  organizationId: { 
+    type: mongoose.Schema.ObjectId, 
+    ref: 'Organization',
+    index: true
+  },
+  visibility: {
+    type: String,
+    enum: ['public', 'organization', 'private', 'unlisted'],
+    default: 'public'
+  },
   capacity: { type: Number, default: 0 },
   status: { 
     type: String, 
@@ -75,7 +87,12 @@ const EventSchema = new mongoose.Schema({
     allowICalExport: { type: Boolean, default: true },
     allowGoogleCalendarExport: { type: Boolean, default: true },
     allowOutlookExport: { type: Boolean, default: true }
-  }
+  },
+  
+  // Soft delete support
+  isDeleted: { type: Boolean, default: false, index: true },
+  deletedAt: { type: Date },
+  deletedBy: { type: mongoose.Schema.ObjectId, ref: 'User' }
 });
 
 // Middleware to update `updatedAt` before saving
@@ -90,6 +107,8 @@ EventSchema.index({ category: 1 });
 EventSchema.index({ startDateTime: 1 });
 EventSchema.index({ status: 1 });
 EventSchema.index({ createdAt: -1 });
+EventSchema.index({ organizationId: 1, visibility: 1 });
+EventSchema.index({ organizationId: 1, status: 1, startDateTime: 1 });
 EventSchema.index({ title: 'text', description: 'text' }); // Text search index
 
 const Event = mongoose.model('Event', EventSchema);

@@ -8,10 +8,12 @@ const OrderSchema = new mongoose.Schema({
     stripeId: {
       type: String,
       required: false,
-      unique: false, // Remove unique constraint to allow multiple null values
+      unique: false,
     },
     totalAmount: {
-      type: String,
+      type: Number,
+      required: true,
+      default: 0,
     },
     event: {
       type: mongoose.Schema.ObjectId,
@@ -20,6 +22,11 @@ const OrderSchema = new mongoose.Schema({
     buyer: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
+    },
+    organizationId: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Organization',
+      index: true,
     },
     quantity: {
       type: Number,
@@ -32,10 +39,20 @@ const OrderSchema = new mongoose.Schema({
     paymentId: {
       type: String,
       unique: true,
-      sparse: true, // This allows multiple null values
+      sparse: true,
     },
-  })
-  
-  const Order = mongoose.model('Order', OrderSchema)
+    status: {
+      type: String,
+      enum: ['pending', 'completed', 'cancelled', 'refunded'],
+      default: 'pending',
+    },
+  }, { timestamps: true });
 
-  module.exports = Order;
+// Indexes for better query performance
+OrderSchema.index({ event: 1, createdAt: -1 });
+OrderSchema.index({ buyer: 1, createdAt: -1 });
+OrderSchema.index({ status: 1 });
+  
+const Order = mongoose.model('Order', OrderSchema);
+
+module.exports = Order;

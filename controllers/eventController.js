@@ -85,10 +85,11 @@ const getAllEvents = tryCatch(async (req, res) => {
 
 const getEventById = tryCatch(async (req, res) => {
   const { id } = req.params;
-  
+  const Order = require('../models/order');
+
   // Use optimized single document population
   const event = await Event.findById(id);
-  
+
   if (!event) {
     return res.status(404).json(errorResponses.notFound('Event not found'));
   }
@@ -100,9 +101,18 @@ const getEventById = tryCatch(async (req, res) => {
     { fieldName: 'attendees', model: require('../models/user'), select: { username: 1, firstName: 1, lastName: 1, avatar: 1 } }
   ]);
 
+  // Registered count = orders (tickets) for this event. Use Order count so it reflects checkout/orders, not just legacy attendees array.
+  const registeredCount = await Order.countDocuments({
+    event: id,
+    status: { $in: ['completed', 'pending'] }
+  });
+
+  const eventData = populatedEvent.toObject ? populatedEvent.toObject() : { ...populatedEvent };
+  eventData.registeredCount = registeredCount;
+
   res.status(200).json({
     success: true,
-    data: populatedEvent
+    data: eventData
   });
 });
 

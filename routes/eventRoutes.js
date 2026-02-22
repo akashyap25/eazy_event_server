@@ -20,6 +20,28 @@ const router = express.Router();
 // Public routes
 router.get('/', optionalAuth, getAllEvents);
 router.get('/related', getRelatedEvents);
+
+// Get current user's events - must be before /:id route
+router.get('/my', authenticateToken, requireAuth, async (req, res) => {
+  try {
+    const Event = require('../models/event');
+    const events = await Event.find({ organizer: req.user._id })
+      .sort({ createdAt: -1 })
+      .populate('category');
+    res.json({
+      success: true,
+      data: events,
+      count: events.length
+    });
+  } catch (error) {
+    console.error('Error fetching user events:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching your events'
+    });
+  }
+});
+
 router.get('/:id', optionalAuth, commonValidations.mongoId('id'), handleValidationErrors, getEventById);
 
 // Protected routes

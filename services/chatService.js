@@ -1,6 +1,7 @@
 const { Message, ChatRoom } = require('../models/chat');
 const Event = require('../models/event');
 const { User } = require('../models/user');
+const Order = require('../models/order');
 
 class ChatService {
   /**
@@ -37,7 +38,7 @@ class ChatService {
       await chatRoom.addParticipant(createdBy, 'admin');
 
       // Add event organizer as admin if different from creator
-      if (event.organizer.toString() !== createdBy.toString()) {
+      if (event.organizer && event.organizer.toString() !== createdBy.toString()) {
         await chatRoom.addParticipant(event.organizer, 'admin');
       }
 
@@ -69,6 +70,64 @@ class ChatService {
     } catch (error) {
       throw new Error(`Failed to get chat room: ${error.message}`);
     }
+  }
+
+  /**
+   * Find or create a general chat room for an event (join if exists, create if not).
+   * @param {String} eventId - Event ID
+   * @param {String} userId - User ID
+   * @param {Object} roomData - Optional name, description for new room
+   * @returns {Promise<Object>} Chat room (existing or created)
+   */
+  /**
+   * Get user's role for an event: owner, collaborator, or attendee (registered).
+   * @param {String} eventId - Event ID
+   * @param {String} userId - User ID
+   * @returns {Promise<String|null>} 'owner' | 'collaborator' | 'attendee' | null
+   */
+  static async getEventRoleForUser(eventId, userId) {
+    const event = await Event.findById(eventId).lean();
+    if (!event) return null;
+    const uid = userId.toString();
+    if (event.organizer && event.organizer.toString() === uid) return 'owner';
+    if (event.coOrganizers && event.coOrganizers.some(c => c.user && c.user.toString() === uid)) return 'collaborator';
+    const order = await Order.findOne({
+      event: eventId,
+      buyer: userId,
+      status: { $in: ['pending', 'completed'] }
+    }).lean();
+    if (order) return 'attendee';
+    return null;
+  }
+
+  /**
+   * Check if user can participate in event chat (owner, collaborator, or registered attendee).
+   * @param {String} eventId - Event ID
+   * @param {String} userId - User ID
+   * @returns {Promise<Boolean>}
+   */
+  static async canUserParticipateInEventChat(eventId, userId) {
+    return (await this.getEventRoleForUser(eventId, userId)) != null;
+  }
+
+  static async findOrCreateEventChatRoom(eventId, userId, roomData = {}) {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      throw new Error('Event not found');
+    }
+    const canParticipate = await this.canUserParticipateInEventChat(eventId, userId);
+    if (!canParticipate) {
+      throw new Error('Only the event owner, collaborators, and registered attendees can join the event chat.');
+    }
+    let chatRoom = await ChatRoom.findOne({ event: eventId, isActive: true }).sort({ createdAt: 1 });
+    if (chatRoom) {
+      const isParticipant = chatRoom.participants.some(p => p.user.toString() === userId.toString());
+      if (!isParticipant) {
+        await chatRoom.addParticipant(userId, 'member');
+      }
+      return await this.getChatRoomById(chatRoom._id);
+    }
+    return await this.createChatRoom(eventId, userId, roomData);
   }
 
   /**
@@ -186,7 +245,7 @@ class ChatService {
    * @param {Object} messageData - Message data
    * @returns {Promise<Object>} Created message
    */
-  static async sendMessage(roomId, senderId, messageData) {
+  static async sendMessage(roomId, senderIdOrGuest, messageData) {
     try {
       const chatRoom = await ChatRoom.findById(roomId);
       if (!chatRoom) {
@@ -197,13 +256,22 @@ class ChatService {
         throw new Error('Chat room is not active');
       }
 
-      if (!chatRoom.canSendMessage(senderId)) {
+      const isGuest = typeof senderIdOrGuest === 'object' && senderIdOrGuest && senderIdOrGuest.guestDisplayName;
+      const guestDisplayName = isGuest ? (senderIdOrGuest.guestDisplayName || 'Guest').trim() : null;
+      const senderId = isGuest ? null : senderIdOrGuest;
+
+      if (senderId && !chatRoom.canSendMessage(senderId)) {
         throw new Error('You cannot send messages to this chat room');
+      }
+      if (isGuest && !guestDisplayName) {
+        throw new Error('Guest display name is required');
       }
 
       const message = new Message({
         chatRoom: roomId,
-        sender: senderId,
+        sender: senderId || undefined,
+        senderGuestDisplayName: guestDisplayName || undefined,
+        senderEventRole: messageData.senderEventRole || undefined,
         content: messageData.content,
         messageType: messageData.messageType || 'text',
         attachments: messageData.attachments || [],

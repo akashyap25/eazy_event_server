@@ -7,17 +7,18 @@ const {
   handleStripeWebhook,
   getRegisteredUsers
 } = require('../controllers/orderController');
+const { authenticateToken } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-router.post('/checkout', checkoutOrder);
-router.post('/', createOrder);
-router.get('/event/:id', getOrdersByEvent);
-router.get('/user/:id', getOrdersByUser);
-router.get('/rgstduser/:id', getRegisteredUsers);
+// Protected routes - require authentication
+router.post('/checkout', authenticateToken, checkoutOrder);
+router.post('/', authenticateToken, createOrder);
+router.get('/event/:id', authenticateToken, getOrdersByEvent);
+router.get('/user/:id', authenticateToken, getOrdersByUser);
+router.get('/rgstduser/:id', authenticateToken, getRegisteredUsers);
 
-
-// Ensure this route matches the webhook setup in app.js
+// Webhook route - no auth (Stripe sends these directly)
 router.post('/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook);
 
 module.exports = router;

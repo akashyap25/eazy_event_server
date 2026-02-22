@@ -8,6 +8,7 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const passport = require('./config/passport');
 const compression = require('compression');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -30,7 +31,7 @@ const { createCacheMiddleware, warmCache, getCacheStats, clearCache } = require(
 const { performanceMonitor, performanceMiddleware } = require('./utils/performanceMonitor');
 const { generateCSRFToken } = require('./middlewares/csrfProtection');
 const { generalRateLimit } = require('./middlewares/rateLimiting');
-const { sanitizeInput, handleValidationErrors } = require('./utils/validationUtils');
+const { sanitizeInput, handleValidationErrors, commonValidations } = require('./utils/validationUtils');
 const { xssProtection, xssHelmetConfig, sqlInjectionProtection } = require('./middlewares/xssProtection');
 const { 
   validateApiVersion, 
@@ -62,6 +63,8 @@ const {
   getRateLimitStatus 
 } = require('./middlewares/userRateLimiting');
 const cleanupService = require('./services/cleanupService');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -97,6 +100,10 @@ app.use(session({
   }),
   cookie: securityConfig.session.cookie
 }));
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Rate limiting
 app.use(generalRateLimit);
@@ -190,6 +197,10 @@ app.use('/api/email', emailRoutes);
 app.use('/api/sms', smsRoutes);
 app.use('/api/social', socialMediaRoutes);
 
+// OAuth Authentication routes
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
 // Unified Communication routes
 const communicationRoutes = require('./routes/communicationRoutes');
 app.use('/api/communication', communicationRoutes);
@@ -200,12 +211,32 @@ const eventAnalyticsRoutes = require('./routes/eventAnalyticsRoutes');
 const calendarExportRoutes = require('./routes/calendarExportRoutes');
 const eventCollaborationRoutes = require('./routes/eventCollaborationRoutes');
 const eventTemplateRoutes = require('./routes/eventTemplateRoutes');
+const organizationRoutes = require('./routes/organizationRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 app.use('/api/recurring-events', recurringEventRoutes);
 app.use('/api/analytics', eventAnalyticsRoutes);
 app.use('/api/calendar-export', calendarExportRoutes);
 app.use('/api/collaboration', eventCollaborationRoutes);
 app.use('/api/templates', eventTemplateRoutes);
+app.use('/api/organizations', organizationRoutes);
+app.use('/api/search', searchRoutes);
+
+// AI-powered features routes
+const aiRoutes = require('./routes/aiRoutes');
+app.use('/api/ai', aiRoutes);
+
+// Support ticket and FAQ routes
+const supportRoutes = require('./routes/supportRoutes');
+app.use('/api/support', supportRoutes);
+
+// Check-in and QR code routes
+const checkInRoutes = require('./routes/checkInRoutes');
+app.use('/api/check-in', checkInRoutes);
+
+// Review routes
+const reviewRoutes = require('./routes/reviewRoutes');
+app.use('/api/reviews', reviewRoutes);
 
 // Rate limit status endpoint
 app.get('/api/rate-limit-status', getRateLimitStatus);
@@ -215,11 +246,44 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// API Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Eazy Event API Docs'
+}));
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
 // CORS error handler
 app.use(corsErrorHandler);
 
 // API versioning error handler
 app.use(versionErrorHandler);
+
+// Explicit route: find-or-create event chat room (avoids 404 with mounted router)
+const { authenticateToken, requireAuth } = require('./middlewares/authMiddleware');
+const ChatService = require('./services/chatService');
+app.post('/api/chat/events/:eventId/rooms',
+  authenticateToken,
+  requireAuth,
+  commonValidations.mongoId('eventId'),
+  handleValidationErrors,
+  async (req, res) => {
+    try {
+      const { eventId } = req.params;
+      const { name, description } = req.body || {};
+      const chatRoom = await ChatService.findOrCreateEventChatRoom(eventId, req.user._id, {
+        name: name || 'Event Chat',
+        description: description || 'General discussion for this event'
+      });
+      res.status(201).json({ success: true, data: chatRoom });
+    } catch (error) {
+      res.status(400).json({ success: false, message: error.message });
+    }
+  }
+);
 
 // 404 handler
 app.use('*', (req, res) => {

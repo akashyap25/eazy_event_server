@@ -2,8 +2,71 @@ const express = require('express');
 const { authenticateToken, requireAuth } = require('../middlewares/authMiddleware');
 const { handleValidationErrors, commonValidations } = require("../utils/validationUtils");
 const pushNotificationService = require('../services/pushNotificationService');
+const Notification = require('../models/notification');
 
 const router = express.Router();
+
+// Get in-app notifications for current user
+router.get('/',
+  authenticateToken,
+  requireAuth,
+  async (req, res) => {
+    try {
+      const notifications = await Notification.find({ recipient: req.user._id })
+        .sort({ createdAt: -1 })
+        .limit(50)
+        .lean();
+      res.json({ success: true, data: notifications || [] });
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+);
+
+// Mark one notification as read
+router.put('/:id/read',
+  authenticateToken,
+  requireAuth,
+  async (req, res) => {
+    try {
+      const n = await Notification.findOne({ _id: req.params.id, recipient: req.user._id });
+      if (!n) return res.status(404).json({ success: false, message: 'Notification not found' });
+      await n.markAsRead();
+      res.json({ success: true, data: n });
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+);
+
+// Mark all as read
+router.put('/read-all',
+  authenticateToken,
+  requireAuth,
+  async (req, res) => {
+    try {
+      await Notification.markAllAsRead(req.user._id);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+);
+
+// Delete a notification
+router.delete('/:id',
+  authenticateToken,
+  requireAuth,
+  async (req, res) => {
+    try {
+      const result = await Notification.findOneAndDelete({ _id: req.params.id, recipient: req.user._id });
+      if (!result) return res.status(404).json({ success: false, message: 'Notification not found' });
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  }
+);
 
 // Subscribe to push notifications
 router.post('/subscribe',

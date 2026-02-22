@@ -1,10 +1,27 @@
 const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
+  chatRoom: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ChatRoom',
+    required: true,
+    index: true
+  },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false
+  },
+  senderGuestDisplayName: {
+    type: String,
+    trim: true,
+    maxlength: 100,
+    default: null
+  },
+  senderEventRole: {
+    type: String,
+    enum: ['owner', 'collaborator', 'attendee'],
+    default: null
   },
   content: {
     type: String,
@@ -178,7 +195,8 @@ messageSchema.methods.toSafeObject = function() {
 };
 
 chatRoomSchema.methods.addParticipant = function(userId, role = 'member') {
-  const existingParticipant = this.participants.find(p => p.user.toString() === userId.toString());
+  const uid = userId.toString();
+  const existingParticipant = this.participants.find(p => (p.user && (p.user._id ? p.user._id : p.user).toString()) === uid);
   if (!existingParticipant) {
     this.participants.push({
       user: userId,
@@ -191,24 +209,33 @@ chatRoomSchema.methods.addParticipant = function(userId, role = 'member') {
 };
 
 chatRoomSchema.methods.removeParticipant = function(userId) {
-  this.participants = this.participants.filter(p => p.user.toString() !== userId.toString());
+  const uid = userId.toString();
+  this.participants = this.participants.filter(p => participantUserId(p) !== uid);
   return this.save();
 };
 
 chatRoomSchema.methods.updateParticipantRole = function(userId, role) {
-  const participant = this.participants.find(p => p.user.toString() === userId.toString());
+  const uid = userId.toString();
+  const participant = this.participants.find(p => participantUserId(p) === uid);
   if (participant) {
     participant.role = role;
   }
   return this.save();
 };
 
+function participantUserId(p) {
+  if (!p || !p.user) return null;
+  return (p.user._id ? p.user._id : p.user).toString();
+}
+
 chatRoomSchema.methods.isParticipant = function(userId) {
-  return this.participants.some(p => p.user.toString() === userId.toString() && !p.isBanned);
+  const uid = userId.toString();
+  return this.participants.some(p => participantUserId(p) === uid && !p.isBanned);
 };
 
 chatRoomSchema.methods.canSendMessage = function(userId) {
-  const participant = this.participants.find(p => p.user.toString() === userId.toString());
+  const uid = userId.toString();
+  const participant = this.participants.find(p => participantUserId(p) === uid);
   return participant && !participant.isBanned && !participant.isMuted;
 };
 
